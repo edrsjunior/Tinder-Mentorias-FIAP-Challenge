@@ -24,7 +24,7 @@ fun NavigationGraph() {
 
         composable("loginEmail") {
             LoginEmail(
-
+                onHomeScreen = {navController.navigate("homeScreen") }
             )
         }
 

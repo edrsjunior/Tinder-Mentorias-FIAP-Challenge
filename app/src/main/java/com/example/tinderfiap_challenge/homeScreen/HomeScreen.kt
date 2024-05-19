@@ -91,7 +91,7 @@ fun TopBar() {
 @Composable
 fun ImageSection() {
     Image(
-        painter = painterResource(id = R.drawable.personhome_background),
+        painter = painterResource(id = R.drawable.sara),
         contentDescription = null,
         modifier = Modifier
             .fillMaxWidth()
