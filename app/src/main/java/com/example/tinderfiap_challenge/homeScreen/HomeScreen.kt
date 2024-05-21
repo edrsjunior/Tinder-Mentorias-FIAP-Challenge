@@ -19,8 +19,37 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tinderfiap_challenge.R
 
+data class User(val name: String, val role: String, val description: String, val imageRes: Int)
+
+val userList = listOf(
+    User("Sara Adams", "IT Manager", "Gestão de Pessoas - Desenvolvimento Pessoal...", R.drawable.sara),
+    User("Camille Johnson", "Software Engineer", "Desenvolvimento de Software - Backend...", R.drawable.user0),
+    User("John Doe", "Product Manager", "Gerenciamento de Produtos - Estratégia...", R.drawable.user1),
+    User("Jane Smith", "UX Designer", "Design de Experiência do Usuário - Pesquisa...", R.drawable.user2),
+    User("Alice Brown", "Data Scientist", "Ciência de Dados - Machine Learning...", R.drawable.user3),
+    User("Robert Wilson", "Marketing Specialist", "Marketing Digital - SEO e SEM...", R.drawable.user4),
+    User("Emily Davis", "Financial Analyst", "Análise Financeira - Investimentos...", R.drawable.user5),
+    User("Michael Johnson", "Sales Manager", "Gerenciamento de Vendas - Estratégias...", R.drawable.user6),
+    User("Olivia Martinez", "HR Specialist", "Recursos Humanos - Recrutamento...", R.drawable.user7),
+    User("David Lee", "Software Architect", "Arquitetura de Software - Sistemas Distribuídos...", R.drawable.user8),
+    User("Emma White", "Operations Manager", "Gerenciamento de Operações - Logística...", R.drawable.user9),
+    User("James Harris", "Business Analyst", "Análise de Negócios - Processos...", R.drawable.user10),
+    User("Sophia Clark", "Graphic Designer", "Design Gráfico - Branding...", R.drawable.user11),
+    User("Benjamin Lewis", "Network Engineer", "Engenharia de Redes - Infraestrutura...", R.drawable.user12),
+    User("Amelia Walker", "Public Relations", "Relações Públicas - Comunicação...", R.drawable.user13),
+    User("William Hall", "Project Manager", "Gerenciamento de Projetos - Metodologias Ágeis...", R.drawable.user14),
+    User("Mia Allen", "Content Writer", "Redação de Conteúdo - Estratégia de Conteúdo...", R.drawable.user15),
+    User("Lucas Young", "Cybersecurity Analyst", "Análise de Segurança Cibernética - Proteção de Dados...", R.drawable.user16),
+    User("Charlotte King", "Customer Support", "Suporte ao Cliente - Atendimento...", R.drawable.user17),
+    User("Elijah Wright", "Machine Learning Engineer", "Engenharia de Machine Learning - IA...", R.drawable.user18)
+)
+
 @Composable
 fun HomeScreen() {
+    var currentUserIndex by remember { mutableStateOf(0) }
+
+    val currentUser = userList[currentUserIndex]
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -34,22 +63,34 @@ fun HomeScreen() {
         ) {
             TopBar()
 
-        Spacer(modifier = Modifier.height(1.dp))
+            ImageSection(currentUser.imageRes)
 
-            ImageSection()
+            Spacer(modifier = Modifier.height(1.dp))
 
-            UserInfoSection()
+            UserInfoSection(currentUser.name, currentUser.role, currentUser.description)
 
-        Spacer(modifier = Modifier.height(2.dp))
+            Spacer(modifier = Modifier.height(2.dp))
 
 //            ActionButtons()
 
-        Spacer(modifier = Modifier.height(2.dp))
+            Spacer(modifier = Modifier.height(2.dp))
 
             LikeDislikeButtons(
-                onDislikeClick = { showToast("Dislike clicked") },
+                onDislikeClick = {
+                    if (currentUserIndex < userList.size - 1) {
+                        currentUserIndex++
+                    } else {
+                        showToast("No more users")
+                    }
+                },
                 onInfoClick = { showToast("Info clicked") },
-                onLikeClick = { showToast("Like clicked") }
+                onLikeClick = {
+                    if (currentUserIndex < userList.size - 1) {
+                        currentUserIndex++
+                    } else {
+                        showToast("No more users")
+                    }
+                }
             )
         }
     }
@@ -70,16 +111,13 @@ fun TopBar() {
             tint = Color.White,
             modifier = Modifier.size(24.dp)
         )
-
         TextFieldIcon(placeholherText = "Search")
-
         Icon(
             painter = painterResource(id = R.drawable.ic_chat),
             contentDescription = null,
             tint = Color.White,
             modifier = Modifier.size(24.dp)
         )
-
     }
 }
 
@@ -98,9 +136,9 @@ fun TextFieldIcon(placeholherText: String){
 }
 
 @Composable
-fun ImageSection() {
+fun ImageSection(imageRes: Int) {
     Image(
-        painter = painterResource(id = R.drawable.sara),
+        painter = painterResource(id = imageRes),
         contentDescription = null,
         modifier = Modifier
             .fillMaxWidth()
@@ -110,7 +148,7 @@ fun ImageSection() {
 }
 
 @Composable
-fun UserInfoSection() {
+fun UserInfoSection(name: String, role: String, description: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -118,21 +156,21 @@ fun UserInfoSection() {
         horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = "Sara Adams",
+            text = name,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = "IT Manager",
+            text = role,
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
             color = Color.White
         )
         Spacer(modifier = Modifier.height(2.dp))
         Text(
-            text = "Gestão de Pessoas - Desenvolvimento Pessoal...",
+            text = description,
             fontSize = 14.sp,
             fontWeight = FontWeight.Normal,
             color = Color.White
@@ -191,7 +229,6 @@ fun LikeDislikeButtons(
                 .background(Color.White)
                 .padding(8.dp)
         ) {
-            //ic_close
             Icon(painter = painterResource(id = R.drawable.ic_search), contentDescription = null, tint = Color.Red)
         }
         IconButton(
@@ -209,6 +246,7 @@ fun LikeDislikeButtons(
                 tint = Color.Gray,
                 modifier = Modifier.size(20.dp) // Set the size for the icon within the IconButton
             )
+
         }
         IconButton(
             onClick = { onLikeClick() },
@@ -218,7 +256,6 @@ fun LikeDislikeButtons(
                 .background(Color.White)
                 .padding(8.dp)
         ) {
-            //ic_heart
             Icon(painter = painterResource(id = R.mipmap.ic_launcher_foreground), contentDescription = null, tint = Color.Green)
         }
     }
