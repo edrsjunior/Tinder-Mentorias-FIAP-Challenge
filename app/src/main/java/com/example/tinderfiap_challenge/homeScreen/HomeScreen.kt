@@ -1,5 +1,10 @@
 package com.example.tinderfiap_challenge.homeScreen
 
+import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,11 +18,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.example.tinderfiap_challenge.R
+import kotlin.random.Random
 
 data class User(val name: String, val role: String, val description: String, val imageRes: Int)
 
@@ -49,6 +58,7 @@ fun HomeScreen() {
     var currentUserIndex by remember { mutableStateOf(0) }
     var likeCount by remember { mutableStateOf(0) }
     var showMatch by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     val currentUser = userList[currentUserIndex]
 
@@ -95,7 +105,7 @@ fun HomeScreen() {
                     },
                     onInfoClick = { showToast("Info clicked") },
                     onLikeClick = {
-                        if (likeCount < 2) {
+                        if (likeCount < Random.nextInt(2, 6)) {
                             likeCount++
                             if (currentUserIndex < userList.size - 1) {
                                 currentUserIndex++
@@ -103,6 +113,7 @@ fun HomeScreen() {
                         } else {
                             showMatch = true
                             likeCount = 0
+                            sendMatchNotification(context)
                         }
                     }
                 )
@@ -298,7 +309,7 @@ fun MatchScreen(onDismiss: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "Envie uma mensagem para saber mais sobre o usuário",
+                text = "Você acaba de dar match com outro usuário.",
                 fontSize = 18.sp,
                 color = Color.Black
             )
@@ -307,18 +318,28 @@ fun MatchScreen(onDismiss: () -> Unit) {
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Button(onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth(0.4f)
-                ) {
+                Button(onClick = onDismiss) {
                     Text(text = "Envie uma mensagem")
-
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Button(onClick = onDismiss) {
-                    Text(text = "Não Agora...")
+                    Text(text = "Agora não")
                 }
             }
         }
+    }
+}
+
+@SuppressLint("MissingPermission")
+fun sendMatchNotification(context: Context) {
+    val builder = NotificationCompat.Builder(context, "match_notification_channel")
+        .setSmallIcon(R.drawable.ic_person)
+        .setContentTitle("It's a Match!")
+        .setContentText("Você deu match com outro usuário, abre o app para enviar uma mensagem")
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+    with(NotificationManagerCompat.from(context)) {
+        notify(1, builder.build())
     }
 }
 
@@ -327,3 +348,5 @@ fun showToast(message: String) {
     // Por exemplo, se estiver usando uma Activity, você pode usar:
     // Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
+
+

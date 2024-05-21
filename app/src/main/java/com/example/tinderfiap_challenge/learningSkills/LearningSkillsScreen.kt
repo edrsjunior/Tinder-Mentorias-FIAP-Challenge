@@ -52,7 +52,7 @@ fun LearningSkillsScreen(onLearningSkillsScreenDone: () -> Unit) {
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            skills.chunked(3).forEach { rowSkills ->
+            skills.chunked(2).forEach { rowSkills ->
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
@@ -63,28 +63,22 @@ fun LearningSkillsScreen(onLearningSkillsScreenDone: () -> Unit) {
                 }
                 Spacer(modifier = Modifier.height(8.dp))
             }
-            Text(
-                text = "Ver mais",
-                fontSize = 14.sp,
-                color = Color.Gray,
-                textAlign = TextAlign.Center,
+
+            Button(
+                onClick = { onLearningSkillsScreenDone() },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-            )
+                    .padding(horizontal = 32.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.White)
+            ) {
+                Text("Continuar", color = Color.Black)
+            }
+
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Button(
-            onClick = { onLearningSkillsScreenDone() },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 32.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.White)
-        ) {
-            Text("Continuar", color = Color.Black)
-        }
+
     }
 }
 
