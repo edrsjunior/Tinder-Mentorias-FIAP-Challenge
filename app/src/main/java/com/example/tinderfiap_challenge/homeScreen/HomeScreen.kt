@@ -28,19 +28,19 @@ fun HomeScreen() {
     ) {
         TopBar()
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(1.dp))
 
         ImageSection()
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(2.dp))
 
         UserInfoSection()
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(2.dp))
 
         ActionButtons()
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(2.dp))
 
         LikeDislikeButtons(
             onDislikeClick = { showToast("Dislike clicked") },
@@ -55,7 +55,7 @@ fun TopBar() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 2.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -65,25 +65,31 @@ fun TopBar() {
             tint = Color.White,
             modifier = Modifier.size(24.dp)
         )
-        TextField(
-            value = "Encontrar Pessoas",
-            onValueChange = {},
-            modifier = Modifier
-                .fillMaxWidth(0.8f)
-                .fillMaxHeight(0.05f)
-                .background(Color.White, shape = RoundedCornerShape(24.dp)),
-            shape = RoundedCornerShape(40.dp), // Add border radius
-            leadingIcon = {
-                Icon(painter = painterResource(id = R.drawable.ic_search), contentDescription = null)
-            }
-        )
+
+        TextFieldIcon(placeholherText = "Search")
+
         Icon(
             painter = painterResource(id = R.drawable.ic_chat),
             contentDescription = null,
             tint = Color.White,
             modifier = Modifier.size(24.dp)
         )
+
     }
+}
+
+@Composable
+fun TextFieldIcon(placeholherText: String){
+    var textSender by remember { mutableStateOf("") }
+    TextField(
+        value = textSender,
+        placeholder = { Text(text = placeholherText, color = Color.Gray, fontSize = 12.sp)},
+        onValueChange = { textSender = it },
+
+        shape = RoundedCornerShape(40.dp), // Add border radius
+        textStyle = LocalTextStyle.current.copy(color = Color.Black)
+    )
+
 }
 
 @Composable
