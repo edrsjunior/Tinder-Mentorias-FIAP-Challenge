@@ -38,13 +38,11 @@ fun HomeScreen() {
 
             ImageSection()
 
-        Spacer(modifier = Modifier.height(2.dp))
-
             UserInfoSection()
 
         Spacer(modifier = Modifier.height(2.dp))
 
-            ActionButtons()
+//            ActionButtons()
 
         Spacer(modifier = Modifier.height(2.dp))
 
@@ -142,35 +140,35 @@ fun UserInfoSection() {
     }
 }
 
-@Composable
-fun ActionButtons() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Button(
-            onClick = { /* Handle send message action */ },
-            modifier = Modifier
-                .weight(1f)
-                .padding(end = 8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA726))
-        ) {
-            Text("Send a Message", color = Color.White)
-        }
-        Button(
-            onClick = { /* Handle send action */ },
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.White)
-        ) {
-            Text("SEND", color = Color.Black)
-        }
-    }
-}
+//@Composable
+//fun ActionButtons() {
+//    Row(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(16.dp),
+//        horizontalArrangement = Arrangement.SpaceBetween,
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
+//        Button(
+//            onClick = { /* Handle send message action */ },
+//            modifier = Modifier
+//                .weight(1f)
+//                .padding(end = 8.dp),
+//            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA726))
+//        ) {
+//            Text("Send a Message", color = Color.White)
+//        }
+//        Button(
+//            onClick = { /* Handle send action */ },
+//            modifier = Modifier
+//                .weight(1f)
+//                .padding(start = 8.dp),
+//            colors = ButtonDefaults.buttonColors(containerColor = Color.White)
+//        ) {
+//            Text("SEND", color = Color.Black)
+//        }
+//    }
+//}
 
 @Composable
 fun LikeDislikeButtons(
@@ -205,7 +203,12 @@ fun LikeDislikeButtons(
                 .padding(8.dp)
         ) {
             //ic_info
-            Icon(painter = painterResource(id = R.drawable.ic_search), contentDescription = null, tint = Color.Gray)
+            Icon(
+                painter = painterResource(id = R.drawable.ic_email),
+                contentDescription = null,
+                tint = Color.Gray,
+                modifier = Modifier.size(20.dp) // Set the size for the icon within the IconButton
+            )
         }
         IconButton(
             onClick = { onLikeClick() },
