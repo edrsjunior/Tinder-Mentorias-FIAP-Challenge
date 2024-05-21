@@ -3,8 +3,10 @@ package com.example.tinderfiap_challenge.homeScreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -19,34 +21,39 @@ import com.example.tinderfiap_challenge.R
 
 @Composable
 fun HomeScreen() {
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF222E36))
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(16.dp)
     ) {
-        TopBar()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+        ) {
+            TopBar()
 
         Spacer(modifier = Modifier.height(1.dp))
 
-        ImageSection()
+            ImageSection()
 
         Spacer(modifier = Modifier.height(2.dp))
 
-        UserInfoSection()
+            UserInfoSection()
 
         Spacer(modifier = Modifier.height(2.dp))
 
-        ActionButtons()
+            ActionButtons()
 
         Spacer(modifier = Modifier.height(2.dp))
 
-        LikeDislikeButtons(
-            onDislikeClick = { showToast("Dislike clicked") },
-            onInfoClick = { showToast("Info clicked") },
-            onLikeClick = { showToast("Like clicked") }
-        )
+            LikeDislikeButtons(
+                onDislikeClick = { showToast("Dislike clicked") },
+                onInfoClick = { showToast("Info clicked") },
+                onLikeClick = { showToast("Like clicked") }
+            )
+        }
     }
 }
 
