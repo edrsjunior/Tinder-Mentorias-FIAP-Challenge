@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -40,6 +39,14 @@ fun HomeScreen() {
         Spacer(modifier = Modifier.height(16.dp))
 
         ActionButtons()
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        LikeDislikeButtons(
+            onDislikeClick = { showToast("Dislike clicked") },
+            onInfoClick = { showToast("Info clicked") },
+            onLikeClick = { showToast("Like clicked") }
+        )
     }
 }
 
@@ -68,16 +75,7 @@ fun TopBar() {
             shape = RoundedCornerShape(40.dp), // Add border radius
             leadingIcon = {
                 Icon(painter = painterResource(id = R.drawable.ic_search), contentDescription = null)
-            },
-//            colors = TextFieldDefaults.textFieldColors(
-//                textColor = Color.Black,
-//                disabledTextColor = Color.Transparent,
-//                backgroundColor = Color.Transparent,
-//                focusedIndicatorColor = Color.Transparent,
-//                unfocusedIndicatorColor = Color.Transparent,
-//                disabledIndicatorColor = Color.Transparent
-//            )
-
+            }
         )
         Icon(
             painter = painterResource(id = R.drawable.ic_chat),
@@ -159,4 +157,59 @@ fun ActionButtons() {
             Text("SEND", color = Color.Black)
         }
     }
+}
+
+@Composable
+fun LikeDislikeButtons(
+    onDislikeClick: () -> Unit,
+    onInfoClick: () -> Unit,
+    onLikeClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        IconButton(
+            onClick = { onDislikeClick() },
+            modifier = Modifier
+                .size(60.dp)
+                .clip(CircleShape)
+                .background(Color.White)
+                .padding(8.dp)
+        ) {
+            //ic_close
+            Icon(painter = painterResource(id = R.drawable.ic_search), contentDescription = null, tint = Color.Red)
+        }
+        IconButton(
+            onClick = { onInfoClick() },
+            modifier = Modifier
+                .size(60.dp)
+                .clip(CircleShape)
+                .background(Color.White)
+                .padding(8.dp)
+        ) {
+            //ic_info
+            Icon(painter = painterResource(id = R.drawable.ic_search), contentDescription = null, tint = Color.Gray)
+        }
+        IconButton(
+            onClick = { onLikeClick() },
+            modifier = Modifier
+                .size(60.dp)
+                .clip(CircleShape)
+                .background(Color.White)
+                .padding(8.dp)
+        ) {
+            //ic_heart
+            Icon(painter = painterResource(id = R.mipmap.ic_launcher_foreground), contentDescription = null, tint = Color.Green)
+        }
+    }
+}
+
+fun showToast(message: String) {
+    // Implemente o código para mostrar um toast com a mensagem fornecida.
+    // Por exemplo, se estiver usando uma Activity, você pode usar:
+    // Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
