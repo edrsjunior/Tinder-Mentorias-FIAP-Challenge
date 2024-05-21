@@ -9,6 +9,7 @@ import com.example.tinderfiap_challenge.loginEmail.LoginEmail
 import com.example.tinderfiap_challenge.cadastro.SignUpScreen
 import com.example.tinderfiap_challenge.uploadImg.UploadImgScreen
 import com.example.tinderfiap_challenge.homeScreen.HomeScreen
+import com.example.tinderfiap_challenge.learningSkills.LearningSkillsScreen
 import com.example.tinderfiap_challenge.skillScreen.SkillScreen
 
 @Composable
@@ -36,7 +37,13 @@ fun NavigationGraph() {
         }
         composable("skillScreen") {
             SkillScreen(
-                onSkillScreenDone = {navController.navigate("uploadImgScreen") }
+                onSkillScreenDone = {navController.navigate("learningSkillsScreen") }
+            )
+        }
+
+        composable("learningSkillsScreen") {
+            LearningSkillsScreen(
+                onLearningSkillsScreenDone = {navController.navigate("uploadImgScreen") }
             )
         }
 
