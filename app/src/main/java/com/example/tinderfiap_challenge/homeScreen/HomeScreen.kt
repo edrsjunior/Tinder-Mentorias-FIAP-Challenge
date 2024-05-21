@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -91,7 +90,7 @@ fun TopBar() {
 @Composable
 fun ImageSection() {
     Image(
-        painter = painterResource(id = R.drawable.personhome_background),
+        painter = painterResource(id = R.drawable.sara),
         contentDescription = null,
         modifier = Modifier
             .fillMaxWidth()
