@@ -298,7 +298,7 @@ fun MatchScreen(onDismiss: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "You and the user have liked each other.",
+                text = "Envie uma mensagem para saber mais sobre o usuário",
                 fontSize = 18.sp,
                 color = Color.Black
             )
@@ -307,12 +307,15 @@ fun MatchScreen(onDismiss: () -> Unit) {
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Button(onClick = onDismiss) {
-                    Text(text = "Send a Message")
+                Button(onClick = onDismiss,
+                    modifier = Modifier.fillMaxWidth(0.4f)
+                ) {
+                    Text(text = "Envie uma mensagem")
+
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Button(onClick = onDismiss) {
-                    Text(text = "Keep Swiping")
+                    Text(text = "Não Agora...")
                 }
             }
         }
