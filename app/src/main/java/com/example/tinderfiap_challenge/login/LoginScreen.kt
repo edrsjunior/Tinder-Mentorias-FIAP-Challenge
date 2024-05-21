@@ -28,7 +28,6 @@ import com.example.tinderfiap_challenge.loginEmail.LoginEmail
 @Composable
 fun LoginScreen(onNavigateToLogin: () -> Unit, onNavigateToSignUp: () -> Unit) {
 
-
     Column(
         modifier = Modifier
             .fillMaxSize()

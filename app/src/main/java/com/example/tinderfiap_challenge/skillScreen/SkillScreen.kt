@@ -106,28 +106,6 @@ fun TopBarSkillScreen() {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(onClick = { /* Handle back action */ }) {
-            Icon(
-                //ic_arrow_back
-                painter = painterResource(id = R.drawable.ic_search),
-                contentDescription = null,
-                tint = Color.White
-            )
-        }
-        Text(
-            text = "Skills",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.White
-        )
-        IconButton(onClick = { /* Handle menu action */ }) {
-            Icon(
-                //ic_more_vert
-                painter = painterResource(id = R.drawable.ic_search),
-                contentDescription = null,
-                tint = Color.White
-            )
-        }
     }
 }
 

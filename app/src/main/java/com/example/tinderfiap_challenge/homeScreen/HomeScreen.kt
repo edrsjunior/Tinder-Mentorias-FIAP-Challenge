@@ -1,10 +1,7 @@
 package com.example.tinderfiap_challenge.homeScreen
 
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Context
-import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -26,32 +23,10 @@ import androidx.compose.ui.unit.sp
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.tinderfiap_challenge.R
+import com.example.tinderfiap_challenge.cadastro.UserManager
 import kotlin.random.Random
 
-data class User(val name: String, val role: String, val description: String, val imageRes: Int)
-
-val userList = listOf(
-    User("Sara Adams", "IT Manager", "Gestão de Pessoas - Desenvolvimento Pessoal...", R.drawable.sara),
-    User("Camille Johnson", "Software Engineer", "Desenvolvimento de Software - Backend...", R.drawable.user0),
-    User("John Doe", "Product Manager", "Gerenciamento de Produtos - Estratégia...", R.drawable.user1),
-    User("Jane Smith", "UX Designer", "Design de Experiência do Usuário - Pesquisa...", R.drawable.user2),
-    User("Alice Brown", "Data Scientist", "Ciência de Dados - Machine Learning...", R.drawable.user3),
-    User("Robert Wilson", "Marketing Specialist", "Marketing Digital - SEO e SEM...", R.drawable.user4),
-    User("Emily Davis", "Financial Analyst", "Análise Financeira - Investimentos...", R.drawable.user5),
-    User("Michael Johnson", "Sales Manager", "Gerenciamento de Vendas - Estratégias...", R.drawable.user6),
-    User("Olivia Martinez", "HR Specialist", "Recursos Humanos - Recrutamento...", R.drawable.user7),
-    User("David Lee", "Software Architect", "Arquitetura de Software - Sistemas Distribuídos...", R.drawable.user8),
-    User("Emma White", "Operations Manager", "Gerenciamento de Operações - Logística...", R.drawable.user9),
-    User("James Harris", "Business Analyst", "Análise de Negócios - Processos...", R.drawable.user10),
-    User("Sophia Clark", "Graphic Designer", "Design Gráfico - Branding...", R.drawable.user11),
-    User("Benjamin Lewis", "Network Engineer", "Engenharia de Redes - Infraestrutura...", R.drawable.user12),
-    User("Amelia Walker", "Public Relations", "Relações Públicas - Comunicação...", R.drawable.user13),
-    User("William Hall", "Project Manager", "Gerenciamento de Projetos - Metodologias Ágeis...", R.drawable.user14),
-    User("Mia Allen", "Content Writer", "Redação de Conteúdo - Estratégia de Conteúdo...", R.drawable.user15),
-    User("Lucas Young", "Cybersecurity Analyst", "Análise de Segurança Cibernética - Proteção de Dados...", R.drawable.user16),
-    User("Charlotte King", "Customer Support", "Suporte ao Cliente - Atendimento...", R.drawable.user17),
-    User("Elijah Wright", "Machine Learning Engineer", "Engenharia de Machine Learning - IA...", R.drawable.user18)
-)
+val userList = UserManager.getUsers()
 
 @Composable
 fun HomeScreen() {

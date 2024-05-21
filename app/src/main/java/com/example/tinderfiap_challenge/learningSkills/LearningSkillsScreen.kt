@@ -24,7 +24,7 @@ import com.example.tinderfiap_challenge.R
 fun LearningSkillsScreen(onLearningSkillsScreenDone: () -> Unit) {
     val skills = listOf(
         "REACT", "HTTP", "GESTAO DE PESSOAS", "CONTROLE DE PROCESSOS", "ANALTICS",
-        "POWER BI", "AUTOMACAO", "WEB", "APIs Rest", "FIGMA", "AUTOMACAO", "WEB", "APIs Rest", "FIGMA"
+        "POWER BI", "AUTOMACAO", "WEB", "APIs Rest", "FIGMA"
     )
 
     Column(
@@ -91,21 +91,6 @@ fun TopBarLearningSkillsScreen() {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(onClick = { /* Handle back action */ }) {
-            Icon(
-                //ic_arrow_back
-                painter = painterResource(id = R.drawable.ic_search),
-                contentDescription = null,
-                tint = Color.White
-            )
-        }
-        IconButton(onClick = { /* Handle menu action */ }) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_search),
-                contentDescription = null,
-                tint = Color.White
-            )
-        }
     }
 }
 
