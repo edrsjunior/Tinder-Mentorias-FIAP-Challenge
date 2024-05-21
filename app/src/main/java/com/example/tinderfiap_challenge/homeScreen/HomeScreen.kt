@@ -47,51 +47,66 @@ val userList = listOf(
 @Composable
 fun HomeScreen() {
     var currentUserIndex by remember { mutableStateOf(0) }
+    var likeCount by remember { mutableStateOf(0) }
+    var showMatch by remember { mutableStateOf(false) }
 
     val currentUser = userList[currentUserIndex]
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFF222E36))
-            .padding(16.dp)
-    ) {
-        Column(
+    if (showMatch) {
+        MatchScreen {
+            showMatch = false
+            if (currentUserIndex < userList.size - 1) {
+                currentUserIndex++
+            }
+        }
+    } else {
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
+                .background(Color(0xFF222E36))
+                .padding(16.dp)
         ) {
-            TopBar()
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+            ) {
+                TopBar()
 
-            ImageSection(currentUser.imageRes)
+                ImageSection(currentUser.imageRes)
 
-            Spacer(modifier = Modifier.height(1.dp))
+                Spacer(modifier = Modifier.height(1.dp))
 
-            UserInfoSection(currentUser.name, currentUser.role, currentUser.description)
+                UserInfoSection(currentUser.name, currentUser.role, currentUser.description)
 
-            Spacer(modifier = Modifier.height(2.dp))
+                Spacer(modifier = Modifier.height(2.dp))
 
-//            ActionButtons()
+//                ActionButtons()
 
-            Spacer(modifier = Modifier.height(2.dp))
+                Spacer(modifier = Modifier.height(2.dp))
 
-            LikeDislikeButtons(
-                onDislikeClick = {
-                    if (currentUserIndex < userList.size - 1) {
-                        currentUserIndex++
-                    } else {
-                        showToast("No more users")
+                LikeDislikeButtons(
+                    onDislikeClick = {
+                        if (currentUserIndex < userList.size - 1) {
+                            currentUserIndex++
+                        } else {
+                            showToast("No more users")
+                        }
+                    },
+                    onInfoClick = { showToast("Info clicked") },
+                    onLikeClick = {
+                        if (likeCount < 2) {
+                            likeCount++
+                            if (currentUserIndex < userList.size - 1) {
+                                currentUserIndex++
+                            }
+                        } else {
+                            showMatch = true
+                            likeCount = 0
+                        }
                     }
-                },
-                onInfoClick = { showToast("Info clicked") },
-                onLikeClick = {
-                    if (currentUserIndex < userList.size - 1) {
-                        currentUserIndex++
-                    } else {
-                        showToast("No more users")
-                    }
-                }
-            )
+                )
+            }
         }
     }
 }
@@ -128,11 +143,9 @@ fun TextFieldIcon(placeholherText: String){
         value = textSender,
         placeholder = { Text(text = placeholherText, color = Color.Gray, fontSize = 12.sp)},
         onValueChange = { textSender = it },
-
         shape = RoundedCornerShape(40.dp), // Add border radius
         textStyle = LocalTextStyle.current.copy(color = Color.Black)
     )
-
 }
 
 @Composable
@@ -257,6 +270,51 @@ fun LikeDislikeButtons(
                 .padding(8.dp)
         ) {
             Icon(painter = painterResource(id = R.mipmap.ic_launcher_foreground), contentDescription = null, tint = Color.Green)
+        }
+    }
+}
+
+@Composable
+fun MatchScreen(onDismiss: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF222E36).copy(alpha = 0.8f)),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .padding(16.dp)
+                .background(Color.White, shape = RoundedCornerShape(16.dp))
+                .padding(32.dp)
+        ) {
+            Text(
+                text = "It's a Match!",
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "You and the user have liked each other.",
+                fontSize = 18.sp,
+                color = Color.Black
+            )
+            Spacer(modifier = Modifier.height(32.dp))
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Button(onClick = onDismiss) {
+                    Text(text = "Send a Message")
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Button(onClick = onDismiss) {
+                    Text(text = "Keep Swiping")
+                }
+            }
         }
     }
 }
