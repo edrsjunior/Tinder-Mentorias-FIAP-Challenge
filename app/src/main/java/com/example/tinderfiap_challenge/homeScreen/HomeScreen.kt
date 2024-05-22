@@ -181,36 +181,6 @@ fun UserInfoSection(name: String, role: String, description: String) {
     }
 }
 
-//@Composable
-//fun ActionButtons() {
-//    Row(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(16.dp),
-//        horizontalArrangement = Arrangement.SpaceBetween,
-//        verticalAlignment = Alignment.CenterVertically
-//    ) {
-//        Button(
-//            onClick = { /* Handle send message action */ },
-//            modifier = Modifier
-//                .weight(1f)
-//                .padding(end = 8.dp),
-//            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA726))
-//        ) {
-//            Text("Send a Message", color = Color.White)
-//        }
-//        Button(
-//            onClick = { /* Handle send action */ },
-//            modifier = Modifier
-//                .weight(1f)
-//                .padding(start = 8.dp),
-//            colors = ButtonDefaults.buttonColors(containerColor = Color.White)
-//        ) {
-//            Text("SEND", color = Color.Black)
-//        }
-//    }
-//}
-
 @Composable
 fun LikeDislikeButtons(
     onDislikeClick: () -> Unit,
