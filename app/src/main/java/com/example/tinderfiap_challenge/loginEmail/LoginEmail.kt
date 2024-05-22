@@ -12,10 +12,11 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tinderfiap_challenge.homeScreen.HomeScreen
+import com.example.tinderfiap_challenge.homeScreen.userList
 
-
+var emailHome = ""
 @Composable
-fun LoginEmail(onHomeScreen: () -> Unit) {
+fun LoginEmail(onHomeScreen: (String) -> Unit) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -67,15 +68,21 @@ fun LoginEmail(onHomeScreen: () -> Unit) {
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-
+        emailHome = email
         Button(
-            onClick = { onHomeScreen() },
+            onClick = { if (validateLogin(email, password)) {
+                onHomeScreen(emailHome)
+            } },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = Color.White)
         ) {
             Text("Continuar", color = Color.Black)
         }
     }
+}
+fun validateLogin(username: String, password: String): Boolean {
+    val user = userList.find { it.username == username && it.password == password }
+    return user != null
 }
 
 

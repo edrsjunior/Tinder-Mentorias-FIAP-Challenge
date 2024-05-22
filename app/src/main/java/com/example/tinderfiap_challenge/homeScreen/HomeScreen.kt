@@ -29,18 +29,22 @@ import kotlin.random.Random
 val userList = UserManager.getUsers()
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(user: String) {
     var currentUserIndex by remember { mutableStateOf(0) }
     var likeCount by remember { mutableStateOf(0) }
     var showMatch by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
-    val currentUser = userList[currentUserIndex]
+    val userLogin = userList.first() { it.username == user }
+    var userListNew = userList.filter { it.username != user }
+    userListNew = userListNew.filter { it.isMentor != userLogin.isMentor }
+
+    val currentUser = userListNew[currentUserIndex]
 
     if (showMatch) {
         MatchScreen {
             showMatch = false
-            if (currentUserIndex < userList.size - 1) {
+            if (currentUserIndex < userListNew.size - 1) {
                 currentUserIndex++
             }
         }
@@ -72,7 +76,7 @@ fun HomeScreen() {
 
                 LikeDislikeButtons(
                     onDislikeClick = {
-                        if (currentUserIndex < userList.size - 1) {
+                        if (currentUserIndex < userListNew.size - 1) {
                             currentUserIndex++
                         } else {
                             showToast("No more users")
@@ -82,7 +86,7 @@ fun HomeScreen() {
                     onLikeClick = {
                         if (likeCount < Random.nextInt(2, 6)) {
                             likeCount++
-                            if (currentUserIndex < userList.size - 1) {
+                            if (currentUserIndex < userListNew.size - 1) {
                                 currentUserIndex++
                             }
                         } else {
