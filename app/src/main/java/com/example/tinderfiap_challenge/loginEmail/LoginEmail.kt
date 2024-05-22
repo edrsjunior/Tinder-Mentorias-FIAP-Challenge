@@ -39,7 +39,7 @@ fun LoginEmail(onHomeScreen: (String) -> Unit) {
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Seu email") },
+            label = { Text("Usuário") },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(40.dp), // Add border radius
             colors = OutlinedTextFieldDefaults.colors(
